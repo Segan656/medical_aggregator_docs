@@ -1,5 +1,17 @@
 # Data Model
 
+1. [State-Machines](#state-machines)
+   1. [Base State-Machine (BSM)](#base-state-machine-bsm)
+   1. [User](#user)
+   1. [Specialist](#specialist)
+   1. [Service](#service)
+   1. [Clinic](#clinic)
+   1. [ClinicBranch](#clinicbranch)
+1. [Dictionaries](#dictionaries)
+   1. [Speciality](#speciality)
+   1. [ServiceType](#servicetype)
+   1. [TreatmentProfile](#treatmentprofile)
+
 <!---------------------------
 ---------AGGREGATES----------
  --------------------------->
@@ -98,10 +110,10 @@ stateDiagram
 | :- | :- |
 | type * | ServiceType |
 | description | text |
-| price * | float |
+| price | float |
 | discount | int |
-| specialist | Specialist |
-| clinic | ClinicBranch |
+| specialist * | Specialist |
+| clinic_branch * | ClinicBranch |
 
 ### Clinic
 
@@ -122,9 +134,9 @@ stateDiagram
 | :- | :- |
 | name * | text |
 | description | text |
-| photos * | text [] |
+| photos | text [] |
 | references | text [] |
-| branches * | ClinicBranch [] |
+| branches | ClinicBranch [] |
 
 ### ClinicBranch
 
@@ -167,7 +179,7 @@ stateDiagram
 | Attribute | Data type |
 | :- | :- |
 | visit_date * | timestamp |
-| service * | Service |
+| services * | Service [] |
 | rating * | int |
 | story * | text |
 | liked | text |
@@ -194,9 +206,10 @@ There is no generic entity
 | :- | :- |
 | code * | int |
 | name * | text |
-| specialist * | bool |
-| clinic * | bool |
+| specialist | bool |
+| clinic | bool |
 | description | text |
+| is_active | bool |
 
 ### TreatmentProfile
 
