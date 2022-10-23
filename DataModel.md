@@ -7,6 +7,7 @@
    1. [Service](#service)
    1. [Clinic](#clinic)
    1. [ClinicBranch](#clinicbranch)
+   1. [Review](#review)
 1. [Dictionaries](#dictionaries)
    1. [Speciality](#speciality)
    1. [ServiceType](#servicetype)
@@ -161,7 +162,7 @@ stateDiagram
 | metro_stations | text [] |
 | contacts | text [] |
 
-#### Review
+### Review
 
 #### Lifecycle
 
