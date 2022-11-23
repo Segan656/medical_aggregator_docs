@@ -4,13 +4,16 @@
    1. [Base State-Machine (BSM)](#base-state-machine-bsm)
    1. [User](#user)
    1. [Specialist](#specialist)
-   1. [Service](#service)
+   1. [SpecialistService](#specialistservice)
+   1. [ClinicService](#clinicservice)
    1. [Clinic](#clinic)
    1. [ClinicBranch](#clinicbranch)
-   1. [Review](#review)
+   1. [ClinicReview](#clinicreview)
+   1. [SpecialistReview](#specialistreview)
 1. [Dictionaries](#dictionaries)
    1. [Speciality](#speciality)
-   1. [ServiceType](#servicetype)
+   1. [ClinicServiceType](#clinicservicetype)
+   1. [SpecialistServiceType](#specialistservicetype)
    1. [TreatmentProfile](#treatmentprofile)
 
 <!---------------------------
@@ -68,10 +71,8 @@ stateDiagram
 
 ```mermaid
 stateDiagram
- [*] --> Draft 
+ [*] --> Active 
  Deleted --> [*]
- Draft --> Active
- Active --> Draft
  Active --> Deleted
 ```
 
@@ -79,7 +80,7 @@ stateDiagram
 
 | Attribute | Data type |
 | :- | :- |
-| name * | text |
+| full_name * | text |
 | photo * | text |
 | specialities * | Speciality [] |
 | description | text |
@@ -88,20 +89,27 @@ stateDiagram
 | courses | text |
 | contacts | text [] |
 | jobs | text |
+| languages | text |
 | labels | text [] |
+| rating | float |
 | treatment_profiles | TreatmentProfile [] |
-| clinics * | ClinicBranch [] |
+| clinics * | Clinic [] |
 
-### Service
+#### Calculated attributes
+
+| Attribute | Data type | Description
+| :- | :- | :- _
+| reviews | Review[] | All Review with Review.specialist == CurrentSpecialist and Review.status == Active |
+| services | SpecialistService[] | All Service with SpecialistService.specialist == CurrentSpecialist |
+
+### SpecialistService
 
 #### Lifecycle
 
 ```mermaid
 stateDiagram
- [*] --> Draft
+ [*] --> Active
  Deleted --> [*]
- Draft --> Active
- Active --> Draft
  Active --> Deleted
 ```
 
@@ -109,11 +117,36 @@ stateDiagram
 
 | Attribute | Data type |
 | :- | :- |
-| type * | ServiceType |
+| type * | SpecialistServiceType |
 | description | text |
-| price | float |
+| base_price | float |
+| new_price | float |
 | discount | int |
+| sorting_position * | int |
 | specialist * | Specialist |
+| clinic_branch * | ClinicBranch |
+
+### ClinicService
+
+#### Lifecycle
+
+```mermaid
+stateDiagram
+ [*] --> Active
+ Deleted --> [*]
+ Active --> Deleted
+```
+
+#### Attributes
+
+| Attribute | Data type |
+| :- | :- |
+| type * | ClinicServiceType |
+| description | text |
+| base_price | float |
+| new_price | float |
+| discount | int |
+| sorting_position * | int |
 | clinic_branch * | ClinicBranch |
 
 ### Clinic
@@ -122,10 +155,8 @@ stateDiagram
 
 ```mermaid
 stateDiagram
- [*] --> Draft
+ [*] --> Active
  Deleted --> [*]
- Draft --> Active
- Active --> Draft
  Active --> Deleted
 ```
 
@@ -136,7 +167,7 @@ stateDiagram
 | name * | text |
 | description | text |
 | photos | text [] |
-| references | text [] |
+| contacts | text [] |
 | branches | ClinicBranch [] |
 
 ### ClinicBranch
@@ -145,10 +176,8 @@ stateDiagram
 
 ```mermaid
 stateDiagram
- [*] --> Draft
+ [*] --> Active
  Deleted --> [*]
- Draft --> Active
- Active --> Draft
  Active --> Deleted
 ```
 
@@ -162,7 +191,7 @@ stateDiagram
 | metro_stations | text [] |
 | contacts | text [] |
 
-### Review
+### ClinicReview
 
 #### Lifecycle
 
@@ -180,7 +209,31 @@ stateDiagram
 | Attribute | Data type |
 | :- | :- |
 | visit_date * | timestamp |
-| services * | Service [] |
+| services * | ClinicService [] |
+| rating * | int |
+| story * | text |
+| liked | text |
+| not_liked | text |
+
+### SpecialistReview
+
+#### Lifecycle
+
+```mermaid
+stateDiagram
+ [*] --> Draft
+ Deleted --> [*]
+ Draft --> Active
+ Active --> Draft
+ Active --> Deleted
+```
+
+#### Attributes
+
+| Attribute | Data type |
+| :- | :- |
+| visit_date * | timestamp |
+| services * | SpecialistService [] |
 | rating * | int |
 | story * | text |
 | liked | text |
@@ -198,17 +251,24 @@ There is no generic entity
 
 | Attribute | Data type |
 | :- | :- |
-| code * | int |
+| id * | int |
 | name * | text |
 
-### ServiceType
+### ClinicServiceType
 
 | Attribute | Data type |
 | :- | :- |
-| code * | int |
+| id * | int |
 | name * | text |
-| specialist | bool |
-| clinic | bool |
+| description | text |
+| is_active | bool |
+
+### SpecialistServiceType
+
+| Attribute | Data type |
+| :- | :- |
+| id * | int |
+| name * | text |
 | description | text |
 | is_active | bool |
 
@@ -216,6 +276,6 @@ There is no generic entity
 
 | Attribute | Data type |
 | :- | :- |
-| code * | int |
+| id * | int |
 | name * | text |
 | description | text |
