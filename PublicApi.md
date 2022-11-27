@@ -20,19 +20,16 @@ Allow to get list specialities
 | :- | :- |
 Current version | GET v1/specialities
 Min supported version | GET v1/specialities
-Availability | closed
+Availability | opened
 Auth Access | JWT token
 
 #### Enter data
 
-Attribute | Value | Data type | Required
-| :- | :- | :- | :- |
-JWT token | {jwt} | text | yes
+none
 
 #### Logic
 
 1. EDCg
-1. ATC
 1. Return values
    1. For each Speciality, sorting in ascending of Speciality.name
       1. Speciality.id
@@ -46,20 +43,18 @@ Allow to get list of specialists
 | :- | :- |
 Current version | GET v1/specialists
 Min supported version | GET v1/specialists
-Availability | closed
+Availability | opened
 Auth Access | JWT token
 
 #### Enter data
 
 Attribute | Value | Data type | Required
 | :- | :- | :- | :- |
-JWT token | {jwt} | text | yes
 speciality | {speciality_id} | int | no
 
 #### Logic
 
 1. EDCg
-1. ATC
 1. BLAC
    1. If {speciality_id} exists, identify Speciality by {speciality_id}
       1. Define it as CurrentSpeciality
@@ -91,20 +86,18 @@ Allow to get general information about specialist
 | :- | :- |
 Current version | GET v1/specialists/{specialist_id}
 Min supported version | GET v1/specialists/{specialist_id}
-Availability | closed
+Availability | opened
 Auth Access | JWT token
 
 #### Enter data
 
 Attribute | Value | Data type | Required
 | :- | :- | :- | :- |
-JWT token | {jwt} | text | yes
 id | {specialist_id} | int | yes
 
 #### Logic
 
 1. EDCg
-1. ATC
 1. BLAC
    1. Identify Specialist by {specialist_id}
       1. Define it as CurrentSpecialist
