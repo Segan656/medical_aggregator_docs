@@ -12,9 +12,10 @@
    1. [SpecialistReview](#specialistreview)
 1. [Dictionaries](#dictionaries)
    1. [Speciality](#speciality)
-   1. [ClinicServiceType](#clinicservicetype)
-   1. [SpecialistServiceType](#specialistservicetype)
+   1. [ServiceType](#servicetype)
    1. [TreatmentProfile](#treatmentprofile)
+1. [Enums](#enums)
+   1. [ServiceProvider](#serviceprovider)
 
 <!---------------------------
 ---------AGGREGATES----------
@@ -98,7 +99,7 @@ stateDiagram
 #### Calculated attributes
 
 | Attribute | Data type | Description
-| :- | :- | :- _
+| :- | :- | :- |
 | reviews | Review[] | All Review with Review.specialist == CurrentSpecialist and Review.status == Active |
 | services | SpecialistService[] | All Service with SpecialistService.specialist == CurrentSpecialist |
 
@@ -117,7 +118,7 @@ stateDiagram
 
 | Attribute | Data type |
 | :- | :- |
-| type * | SpecialistServiceType |
+| type * | ServiceType |
 | description | text |
 | base_price | float |
 | new_price | float |
@@ -141,7 +142,7 @@ stateDiagram
 
 | Attribute | Data type |
 | :- | :- |
-| type * | ClinicServiceType |
+| type * | ServiceType |
 | description | text |
 | base_price | float |
 | new_price | float |
@@ -254,7 +255,7 @@ There is no generic entity
 | id * | int |
 | name * | text |
 
-### ClinicServiceType
+### ServiceType
 
 | Attribute | Data type |
 | :- | :- |
@@ -262,15 +263,7 @@ There is no generic entity
 | name * | text |
 | description | text |
 | is_active | bool |
-
-### SpecialistServiceType
-
-| Attribute | Data type |
-| :- | :- |
-| id * | int |
-| name * | text |
-| description | text |
-| is_active | bool |
+| provider* | ServiceProvider |
 
 ### TreatmentProfile
 
@@ -279,3 +272,12 @@ There is no generic entity
 | id * | int |
 | name * | text |
 | description | text |
+
+## Enums
+
+### ServiceProvider
+
+| id | value |
+| :- | :- |
+| 0 | clinik |
+| 1 | specialist |

@@ -269,7 +269,7 @@ clinic_branch | {clinic_branch_id} | int | yes
 1. Create new ServiceType with attributes
    1. Define it as CurrentServiceType
    1. CurrentServiceType.name = {service_name}
-   1. CurrentServiceType.specialist = true
+   1. CurrentServiceType.provider = ServiceProvider.specialist
    1. CurrentServiceType.is_active = false
 1. Create Service with attributes
    1. Service.type = CurrentServiceType
